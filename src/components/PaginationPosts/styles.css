@@ -1,0 +1,26 @@
+.table-content-products{
+    width: 100%;
+    margin: auto;
+}
+.image-products{
+    border-radius: 50%;
+}
+.btn-products{
+    padding: 0.8em;
+    padding-left: 2em;
+    padding-right: 2em;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 8px;
+    text-transform: uppercase;
+    border: 1px solid #015C92;
+    background-color: #015C92;
+    
+}
+.btn-products:hover{
+    color: #015C92;
+    border: 1px solid #015C92;
+    background-color: #F0F2F5;
+}

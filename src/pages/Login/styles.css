@@ -1,0 +1,13 @@
+.container-profile-information{
+    margin-top: auto;
+    margin-bottom: auto;
+    color: black;
+    font-size: xx-large;
+    font-weight: 700;
+}
+.google-button{
+    text-align: center;
+    position: fixed;
+	   left: 50%;
+	   top:25%;
+}
