@@ -24,16 +24,16 @@ function OrderDetails(){
             justifyContent: 'center',
             height: '100vh',
           }}>
-            <div className="col-sm-6 offset-sm-3"> 
+            {posts && <div className="col-sm-6 offset-sm-3"> 
                 <p>Order ID :</p>
                 <p>{posts.id}</p>
                 <p>Quantity :</p>
-                <p>{posts.orderDetails[0].quantity}</p>
+                <p>{posts.orderDetails && posts.orderDetails[0].quantity}</p>
                 <p>price :</p>
-                <p>{posts.orderDetails[0].price}</p>
+                <p>{posts.orderDetails && posts.orderDetails[0].price}</p>
                 <p>Product Name :</p>
-                <p>{posts.orderDetails[0].productName}</p>
-            </div>
+                <p>{posts.orderDetails && posts.orderDetails[0].productName}</p>
+            </div>}
         </div>
       );
 }

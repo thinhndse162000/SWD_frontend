@@ -20,6 +20,31 @@ const OrderPosts = ({ orders, loading, storeList }) => {
         .includes(searchTerm.toLowerCase())
     );
   });
+  const StatusComponent = ({ status }) => {
+     let statusName;
+
+  switch (status) {
+    case 1:
+      statusName = 'In Cart';
+      break;
+    case 2:
+      statusName = 'Has Check Out';
+      break;
+    case 3:
+      statusName = 'Canceled';
+      break;
+    case 4:
+      statusName = 'Approved';
+      break;
+    case 5:
+      statusName = 'Decline';
+      break;
+    default:
+      statusName = 'Unknown';
+  }
+
+    return <div>{statusName}</div>;
+  };
   console.log(orders);
   return (
     <div className="dashboard-content">
@@ -56,7 +81,7 @@ const OrderPosts = ({ orders, loading, storeList }) => {
                       <span>{storeName}</span>
                     </td>
                     <td>
-                      <span>{post.status}</span>
+                    <span><StatusComponent status = {post.status}/></span>
                     </td>
                     <td>
                       <div>
