@@ -14,7 +14,7 @@ import Data from './pages/Product/data';
 import Ecommerce from './pages/DashBoard/Ecommerce';
 import Details from './pages/Product/details';
 import OrderDetails from './pages/Orders/details';
-
+import UpdateOrder from './pages/Orders/update';
 
 function App () {
   // const [page, setPage] = useState([]);
@@ -29,6 +29,7 @@ function App () {
                   <Route path="dashboard" element={<Ecommerce/>} />
                   <Route path="orders" element={< Orders/>} />
                   <Route path='orders/details' element={< OrderDetails/>}/>
+                  <Route path='orders/update' element={< UpdateOrder/>}/>
                   <Route path="products" element={< Products/>} />
                   <Route path="products/data" element={< Data/>} />
                   <Route path='products/details' element={< Details/>}/>

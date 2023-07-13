@@ -82,6 +82,7 @@ const OrderPosts = ({ orders, loading, storeList }) => {
                     </td>
                     <td>
                     <span><StatusComponent status = {post.status}/></span>
+                    <></>
                     </td>
                     <td>
                       <div>
@@ -114,7 +115,7 @@ const OrderPosts = ({ orders, loading, storeList }) => {
                       </a>
                     </td>
                     <td>
-                      <a href={"orders/details?id=" + post.id}>
+                      <a href={"orders/update?id=" + post.id}>
                         <button
                           className="btn btn-primary"
                           id={post.id}
