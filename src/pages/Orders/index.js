@@ -22,7 +22,7 @@ function Orders() {
         "https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Store"
       );
       console.log(res);
-      setPosts(res.data.filter((value) => value.storeId  === '726b7918-3aac-4f65-92ff-d2edd7bbd6fa'));
+      setPosts(res.data.filter((value) => value.storeId  === '5a3bacb6-51d5-22bb-b182-1b8b8623dfb6'));
       setStoreList(store.data)
       setLoading(false);
     };

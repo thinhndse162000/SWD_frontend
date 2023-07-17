@@ -1,6 +1,10 @@
 import DashboardHeader from "../../components/DashboardHeader";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../Login/Firebase";
+import { parsePath } from "react-router-dom";
+
 
 function Data() {
   const [name, setName] = useState("");
@@ -9,16 +13,17 @@ function Data() {
   const [file, setimageUrl] = useState("");
   const [select, setSelected] = useState("");
   const [optionList, setOptionList] = useState([]);
-  
+  const [imageUrls, setImageUrls] = useState([]);
+  const imageListRef = ref(storage);
   function addproduct() {
     console.warn(name, description, price, file);
     const formData = {
       name : name,
       description : description,
       price : parseFloat(price),
-      imageUrl : file,
+      imageUrl : imageUrls[0],
       categoryId : select,
-      storeId: '58e9cca7-69fc-2741-0cd1-3eb0d6c8a3ab'
+      storeId: '5a3bacb6-51d5-22bb-b182-1b8b8623dfb6'
     }
     console.log(formData);
     axios.post('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Product',formData,{
@@ -32,11 +37,17 @@ function Data() {
           "Access-Control-Allow-Methods": "GET, POST, OPTION",
       }
   })
+    if(file == null) return;
+    const imageRef = ref(storage, file.name);
+    uploadBytes(imageRef,file).then(() => {
+      alert("Products Added");
+    })
   }
   const fetchData = () => {
     axios
-      .get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Category")
+      .get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Category?include=Products")
       .then((response) => {
+        
         const { data } = response;
         if (response.status === 200) {
           //check the api call is success by stats code 200,201 ...etc
@@ -50,7 +61,17 @@ function Data() {
   useEffect(() => {
     fetchData();
   }, []);
-
+  useEffect(() => {
+    listAll(imageListRef).then((response) =>{
+      console.log(response);
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) =>{
+          setImageUrls((prev) => [...prev, url]);
+        })
+      })
+    })
+  }, []);
+  // console.log(optionList);
   return (
     <div className="dashboard-content">
       <DashboardHeader />
@@ -80,18 +101,20 @@ function Data() {
             onChange={(e) => setPrice(e.target.value)}
           />
           <br />
-          {/* <input
+          <input
             type="file"
             placeholder="imageUrl"
             className="form-control"
             onChange={(e) => setimageUrl(e.target.files[0])}
-          /> */}
-          <input
+          />
+          <br />
+          <br />
+          {/* <input
             type="text"
             placeholder="imageUrl"
             className="form-control"
             onChange={(e) => setimageUrl(e.target.value)}
-          />
+          /> */}
           <br />
           <select
             className="form-control"

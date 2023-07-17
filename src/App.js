@@ -25,14 +25,15 @@ function App () {
           <AuthContextProvider>
           <div className='dashboard-body'>
               <Routes>
-                  <Route path="/" element={<Ecommerce/>} />
-                  <Route path="dashboard" element={<Ecommerce/>} />
-                  <Route path="orders" element={< Orders/>} />
-                  <Route path='orders/details' element={< OrderDetails/>}/>
-                  <Route path='orders/update' element={< UpdateOrder/>}/>
-                  <Route path="products" element={< Products/>} />
-                  <Route path="products/data" element={< Data/>} />
-                  <Route path='products/details' element={< Details/>}/>
+                
+                  <Route path="/" element={<Protected><Ecommerce/></Protected>} />
+                  <Route path="dashboard" element={<Protected><Ecommerce/></Protected>} />
+                  <Route path="orders" element={<Protected>< Orders/></Protected>} />
+                  <Route path='orders/details' element={<Protected>< OrderDetails/></Protected>}/>
+                  <Route path='orders/update' element={<Protected>< UpdateOrder/></Protected>}/>
+                  <Route path="products" element={<Protected>< Products/></Protected>} />
+                  <Route path="products/data" element={<Protected>< Data/></Protected>} />
+                  <Route path='products/details' element={ <Protected>< Details/></Protected>}/>
                   <Route path="profile" element={
                               <Protected>
                                 <Account />
