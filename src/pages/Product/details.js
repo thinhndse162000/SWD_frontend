@@ -1,23 +1,30 @@
 import axios from "axios";
 import React,  { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-
-
+import { UserAuth } from "../Login/AuthContext";
 
 function Details (){
     const [searchParams, setSearchParams] = useSearchParams();
     const [posts, setPosts] = useState([]);
     const [category, setCategory] = useState([]);
+    const { logOut, user } = UserAuth();
+    const config = {
+      headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Authorization' : `Bearer ${user.accessToken}`,
+      }
+    };
+
     console.log(searchParams.get("id"));
     useEffect(() => {
         const fetchPosts = async () => {
-          const res = axios.get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Product/"+ searchParams.get("id") +"?include=Category");
-        
+          const res = axios.get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Product/"+ searchParams.get("id") +"?include=Category",
+          config);
           setPosts((await res).data);
           setCategory((await res).data.category);
         };
         fetchPosts();
-      }, []);
+      }, [user]);
       console.log(category);
       console.log(posts);
     // axios.get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Product/"+ searchParams.get("id") +"?include=Inventory")

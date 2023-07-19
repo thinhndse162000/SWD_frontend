@@ -1,75 +1,21 @@
 import { React, useState, useEffect, useRef } from "react";
 import { Chart, PieController, ArcElement, registerables } from "chart.js";
 import axios from "axios";
-
-// import { Chart as chartjs, 
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Title,
-//   Tooltip,
-//   Legend} from 'chart.js'
-// import { Line } from "react-chartjs-2";
-
-// chartjs.register(
-//   CategoryScale, //linear x
-//   LinearScale,// linear 
-//   PointElement,
-//   LineElement,
-//   Title,
-//   Tooltip,
-//   Legend
-// );
-// const options = {
-//   responsive: true,
-//   plugins: {
-//     legend: {
-//       position: 'top' ,
-//     },
-//     title: {
-//       display: true,
-//       text: 'VInhome Ecommerce',
-//     },
-//   },
-// };
+import { UserAuth } from "../Login/AuthContext";
 
 
-// const data = { 
-//   labels : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//   datasets: [
-//     {
-//       label: 'Order',
-//       data: [100,200,300,400,200,100,200],
-//       borderColor: 'rgb(255, 99, 132)',
-//       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-//     },
-//     {
-//       label: 'Customer',
-//       data: [10,200,150,250,300,350,500],
-//       borderColor: 'rgb(53, 162, 235)',
-//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-//     },
-//   ],
-// };
-
-// function Ecommerce(){
-//   // const [chartData, setChartData] = useState([]);
-//   // setChartData(data)
-//   // return (
-//   //   <div className="App">
-//   //     <LineChart chartData={chartData} />
-//   //   </div>
-//   // );
-//   return <Line options={options} data={data} />;
-// }
-// export default Ecommerce;
 const Ecommerce = () => {
   Chart.register(PieController, ArcElement);
   Chart.register(...registerables);
   const pieChartRef = useRef(null);
   const areaChartRef = useRef(null);
-
+  const { logOut, user } = UserAuth();
+  const config = {
+    headers:{
+      'Access-Control-Allow-Origin': '*',
+      'Authorization' : `Bearer ${user.accessToken}`,
+    }
+  };
    //tinh tong order
    const [orderCount, setOrderCount] = useState(0);
    const [userCount, setUserCount] = useState(0);
@@ -99,7 +45,7 @@ const Ecommerce = () => {
   
     async function countOrders() {
       try {
-        const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order');
+        const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order',config);
         const orders = response.data;
         const orderCount = orders.length;
   
@@ -112,7 +58,7 @@ const Ecommerce = () => {
     }                          
     async function countUsers() {
       try {
-        const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/User');
+        const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/User',config);
         const users = response.data;
         const userCount = users.length;
   
@@ -126,7 +72,7 @@ const Ecommerce = () => {
      //Income by month
   const fetchOrdersAndCalculateSum = async () => {
     try {
-      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order');
+      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order',config);
       const orders = response.data;
 
       const sumForCurrentMonth = calculateSumByMonth(orders);
@@ -165,7 +111,7 @@ const Ecommerce = () => {
   //Income by year
   const fetchOrdersAndCalculateSum1 = async () => {
     try {
-      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order');
+      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order',config);
       const orders = response.data;
 
       const sumForCurrentYear = calculateSumByYear(orders);
@@ -231,7 +177,7 @@ const Ecommerce = () => {
   };
   const fetchOrdersAndCalculateSum3 = async () => {
     try {
-      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order');
+      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order',config);
       const orders = response.data;
 
       const sumForPreviousMonth = calculateSumByPreviousMonth(orders);
@@ -291,7 +237,7 @@ const Ecommerce = () => {
    //area chart
    const fetchMonthlyData = async () => {
     try {
-      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order');
+      const response = await axios.get('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order',config);
       const orders = response.data;
       const currentYear = new Date().getFullYear();
 

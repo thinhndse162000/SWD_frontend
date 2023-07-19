@@ -1,6 +1,7 @@
 import axios from "axios";
 import React,  { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { UserAuth } from "../Login/AuthContext";
 
 const statusList =[
     {
@@ -31,14 +32,21 @@ function UpdateOrder(){
     const [posts, setPosts] = useState([]);
     const [select, setSelected] = useState("");
     const [optionList, setOptionList] = useState(statusList);
+
+    const { logOut, user } = UserAuth();
     useEffect(() => {
         const fetchPosts = async () => {
-          const res =  await axios.get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order/"+ orderId +"?include=OrderDetails");
+          const res =  await axios.get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order/"+ orderId +"?include=OrderDetails",{
+            headers:{ 
+            'Access-Control-Allow-Origin': '*',
+            "Authorization" : `Bearer ${user.accessToken}`,
+            }
+          });
 
           setPosts(res.data);
         };
         fetchPosts();
-      }, []);
+      }, [user]);
       console.log("posts",posts);
     function updateOrder() {
         const formData = {
@@ -54,6 +62,7 @@ function UpdateOrder(){
         axios.put('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Order/'+ posts.id,formData,{
           headers: {
             'Access-Control-Allow-Origin': '*',
+            "Authorization" : `Bearer ${user.accessToken}`,
           }
         }).then((response) => {
           response.headers = {

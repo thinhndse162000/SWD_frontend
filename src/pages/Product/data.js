@@ -2,8 +2,8 @@ import DashboardHeader from "../../components/DashboardHeader";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../Login/Firebase";
-import { parsePath } from "react-router-dom";
+import {  storage } from "../Login/Firebase";
+import { UserAuth } from "../Login/AuthContext";
 
 
 function Data() {
@@ -15,6 +15,9 @@ function Data() {
   const [optionList, setOptionList] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const imageListRef = ref(storage);
+  
+  
+  const { logOut, user } = UserAuth();
   function addproduct() {
     console.warn(name, description, price, file);
     const formData = {
@@ -29,6 +32,7 @@ function Data() {
     axios.post('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Product',formData,{
       headers: {
         'Access-Control-Allow-Origin': '*',
+        "Authorization" : `Bearer ${user.getIdToken()}`,
       }
     }).then((response) => {
       response.headers = {
@@ -60,7 +64,7 @@ function Data() {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user]);
   useEffect(() => {
     listAll(imageListRef).then((response) =>{
       console.log(response);
