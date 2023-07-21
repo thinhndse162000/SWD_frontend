@@ -18,6 +18,7 @@ const Posts = ({ posts, loading }) => {
       store.description.toString().toLowerCase().includes(searchTerm.toLowerCase()) 
     );
   })
+  console.log(filteredStores);
   return (
     <div className="dashboard-content">
       <DashboardHeader btnText="New Products" />
@@ -73,6 +74,18 @@ const Posts = ({ posts, loading }) => {
                         onClick={handleClick}
                       >
                         Details
+                      </button>
+                    </a>
+                  </td>
+                  <td>
+                    <a href={"products/update?id=" + post.id}>
+                      <button
+                        className="btn btn-primary"
+                        id={post.id}
+                        type="button"
+                        onClick={handleClick}
+                      >
+                        Update
                       </button>
                     </a>
                   </td>

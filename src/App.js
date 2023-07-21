@@ -15,6 +15,8 @@ import Ecommerce from './pages/DashBoard/Ecommerce';
 import Details from './pages/Product/details';
 import OrderDetails from './pages/Orders/details';
 import UpdateOrder from './pages/Orders/update';
+import UpdateProduct from './pages/Product/update';
+
 
 function App () {
   // const [page, setPage] = useState([]);
@@ -34,6 +36,7 @@ function App () {
                   <Route path="products" element={<Protected>< Products/></Protected>} />
                   <Route path="products/data" element={<Protected>< Data/></Protected>} />
                   <Route path='products/details' element={ <Protected>< Details/></Protected>}/>
+                  <Route path='products/update' element={ <Protected>< UpdateProduct/></Protected>}/>
                   <Route path="profile" element={
                               <Protected>
                                 <Account />

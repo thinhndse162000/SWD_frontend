@@ -30,6 +30,7 @@ function Products() {
           "id": item.id,
           "name": item.name,
           "price": item.price,
+          "imageUrl": item.imageUrl,
           "description": item.description,
           "categoryId" : item.categoryId,
           "categoryName": item.category.name

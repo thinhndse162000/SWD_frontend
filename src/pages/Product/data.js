@@ -32,7 +32,7 @@ function Data() {
     axios.post('https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Product',formData,{
       headers: {
         'Access-Control-Allow-Origin': '*',
-        "Authorization" : `Bearer ${user.getIdToken()}`,
+        "Authorization" : `Bearer ${user.accessToken}`,
       }
     }).then((response) => {
       response.headers = {
@@ -45,11 +45,17 @@ function Data() {
     const imageRef = ref(storage, file.name);
     uploadBytes(imageRef,file).then(() => {
       alert("Products Added");
+      
     })
   }
   const fetchData = () => {
     axios
-      .get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Category?include=Products")
+      .get("https://vinhomesecommercewebapi.azurewebsites.net/api/v1/Category?include=Products", {
+        headers:{ 
+        'Access-Control-Allow-Origin': '*',
+        "Authorization" : `Bearer ${user.accessToken}`,
+        }
+      })
       .then((response) => {
         
         const { data } = response;

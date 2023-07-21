@@ -87,7 +87,8 @@ const OrderPosts = ({ orders, loading, storeList }) => {
                     <td>
                       <div>
                         <img
-                          src={post.user.imageUrl}
+                          src={post.user.photoUrl
+                          }
                           width="200"
                           height="200"
                           sizes=""

@@ -56,6 +56,7 @@ function UpdateOrder(){
           total : parseFloat(posts.total),
           customerId : posts.customerId,
           storeId: posts.storeId,
+          fcmToken : posts.fcmToken,
           status: parseInt(select)
         }
         console.log('formData',formData);

@@ -26,23 +26,30 @@ function OrderDetails(){
       }, [user]);
       console.log("posts",posts);
       return (
+        <div className="container mt-5">
+          <h1 class="text-center text-3x2 font-bold py-8" >Order Detail</h1>
         <div 
         style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '100vh',
+            height: '50vh',
           }}>
-            {posts && posts.orderDetails && <div className="col-sm-6 offset-sm-3"> 
-                <p>Order ID :</p>
-                <p>{posts.id}</p>
-                <p>Quantity :</p>
-                <p>{posts.orderDetails && posts.orderDetails[0].quantity}</p>
-                <p>price :</p>
-                <p>{posts.orderDetails && posts.orderDetails[0].price}</p>
-                <p>Product Name :</p>
-                <p>{posts.orderDetails && posts.orderDetails[0].productName}</p>
+            {posts && posts.orderDetails && <div className="col-sm-6 offset-sm-3">
+                
+                <span>Order ID :</span>
+                <span>{posts.id}</span>
+                <p></p>
+                <span>Quantity :</span>
+                <span>{posts.orderDetails && posts.orderDetails[0].quantity}</span>
+                <p></p>
+                <span>price :</span>
+                <span>{posts.orderDetails && posts.orderDetails[0].price}</span>
+                <p></p>
+                <span>Product Name :</span>
+                <span>{posts.orderDetails && posts.orderDetails[0].productName}</span>
             </div>}
+        </div>
         </div>
       );
 }
